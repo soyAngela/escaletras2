@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.example.escaletras'
-    compileSdk 26
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.escaletras"
         minSdk 27
-        targetSdk 26
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
