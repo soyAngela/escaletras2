@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         pelotas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Juego.class);
+                Intent intent = new Intent(MainActivity.this, Niveles.class);
                 MainActivity.this.startActivity(intent);
             }
         });

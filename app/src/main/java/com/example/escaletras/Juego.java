@@ -4,15 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -20,14 +15,22 @@ public class Juego extends AppCompatActivity {
 
     ArrayList<String> palabrasPosibles = new ArrayList<String>();
     Integer contPalabras = 2;
+    String palabraOrigen;
+    String palabraDestino;
+    boolean victoria = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
 
-        String palabraOrigen = "CASA";
-        String palabraDestino = "CACA";
+        Bundle extras = getIntent().getExtras();
+
+        String palabraOrigen = extras.getString("palabraOrigen");
+        String palabraDestino = extras.getString("palabraDestino");
+
+        setPalabra(palabraOrigen, 1);
+        setPalabra(palabraDestino, 0);
 
         palabrasPosibles.add("CASA");
         palabrasPosibles.add("TETA");
@@ -36,9 +39,7 @@ public class Juego extends AppCompatActivity {
         palabrasPosibles.add("PALO");
         palabrasPosibles.add("MESA");
         palabrasPosibles.add("LEMA");
-
-        setPalabra(palabraOrigen, 1);
-        setPalabra(palabraDestino, 0);
+        palabrasPosibles.add("CANA");
     }
 
     public void setPalabra(String palabra, Integer fila){
@@ -49,7 +50,7 @@ public class Juego extends AppCompatActivity {
         }
     }
 
-    public void eliminarFila(View v){
+    public void eliminarPalabra(View v){
         if(contPalabras>=2){
             for(int i = 0; i<4; i++){
                 String s = "f"+contPalabras+"c"+(i+1);
@@ -59,12 +60,17 @@ public class Juego extends AppCompatActivity {
             int resID = getResources().getIdentifier("tableRow"+(contPalabras+1), "id", getPackageName());
             ((TableRow)findViewById(resID)).setVisibility(View.GONE);
             contPalabras--;
+            Log.d("contPalabras: ", contPalabras+"");
+        }
+        if(victoria){
+            victoria = false;
         }
     }
 
     public void anadirPalabra(View v){
-        String palabra = (((TextView) findViewById(R.id.nuevaPalabra)).getText()).toString();
-        if(contPalabras<=6){
+        String palabraMin = (((TextView) findViewById(R.id.nuevaPalabra)).getText()).toString();
+        String palabra = palabraMin.toUpperCase();
+        if(contPalabras<=6 && !victoria){
             if(palabrasPosibles.contains(palabra)){
                 setPalabra(palabra, contPalabras);
                 int resID = getResources().getIdentifier("tableRow"+(contPalabras+1), "id", getPackageName());
@@ -74,10 +80,18 @@ public class Juego extends AppCompatActivity {
             else{
                 Toast.makeText(this, "Introduce una palabra valida.", Toast.LENGTH_SHORT).show();
             }
+            if(palabra.equals(this.palabraDestino)){ //Victoria
+                //TODO: Notificacion de lo has conseguido en X intentos
+                victoria = true;
+            }
         }
-        else{
-            //alerta de has alcanzado el maximo de palabras posibles
+        else if(!victoria){
+            /*int resID = getResources().getIdentifier("tableRow"+(contPalabras), "id", getPackageName());
+            ((TableRow)findViewById(resID)).setVisibility(View.GONE);
+            contPalabras--;*/
             Toast.makeText(this, "Has alcanzado el máximo de palabras posibles.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
