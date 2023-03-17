@@ -26,8 +26,8 @@ public class Juego extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        String palabraOrigen = extras.getString("palabraOrigen");
-        String palabraDestino = extras.getString("palabraDestino");
+        String palabraOrigen = extras.getString("palabraOrigen").toUpperCase();
+        String palabraDestino = extras.getString("palabraDestino").toUpperCase();
 
         setPalabra(palabraOrigen, 1);
         setPalabra(palabraDestino, 0);
