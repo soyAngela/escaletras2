@@ -16,7 +16,7 @@
         android:layout_marginBottom="52dp"
         android:ems="10"
         android:hint="Palabra destino"
-        android:inputType="textPersonName"
+        android:inputType="textCapCharacters"
         android:maxLength="4"
         app:layout_constraintBottom_toTopOf="@+id/destinoInput"
         app:layout_constraintEnd_toEndOf="parent"

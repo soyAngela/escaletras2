@@ -2,6 +2,7 @@ package com.example.escaletras;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Juego extends AppCompatActivity {
@@ -18,6 +23,7 @@ public class Juego extends AppCompatActivity {
     String palabraOrigen;
     String palabraDestino;
     boolean victoria = false;
+    String ultima;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +32,27 @@ public class Juego extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        String palabraOrigen = extras.getString("palabraOrigen").toUpperCase();
-        String palabraDestino = extras.getString("palabraDestino").toUpperCase();
+        cargarPalbras();
 
-        setPalabra(palabraOrigen, 1);
+        palabraOrigen = extras.getString("palabraOrigen").toUpperCase();
+        palabraDestino = extras.getString("palabraDestino").toUpperCase();
+
         setPalabra(palabraDestino, 0);
-
-        palabrasPosibles.add("CASA");
-        palabrasPosibles.add("TETA");
-        palabrasPosibles.add("POPO");
-        palabrasPosibles.add("PIÑA");
-        palabrasPosibles.add("PALO");
-        palabrasPosibles.add("MESA");
-        palabrasPosibles.add("LEMA");
-        palabrasPosibles.add("CANA");
+        setPalabra(palabraOrigen, 1);
     }
 
     public void setPalabra(String palabra, Integer fila){
+
         for(int i = 0; i<4; i++){
             String s = "f"+fila+"c"+(i+1);
             int resID = getResources().getIdentifier(s, "id", getPackageName());
-            ((TextView)findViewById(resID)).setText(palabra.charAt(i)+"");
+            TextView casilla = (TextView)findViewById(resID);
+            casilla.setText(palabra.charAt(i)+"");
+            if(palabra.charAt(i) == palabraDestino.charAt(i)){
+                casilla.setBackgroundColor(Color.GREEN);
+            }
         }
+        ultima = palabra;
     }
 
     public void eliminarPalabra(View v){
@@ -71,17 +76,19 @@ public class Juego extends AppCompatActivity {
         String palabraMin = (((TextView) findViewById(R.id.nuevaPalabra)).getText()).toString();
         String palabra = palabraMin.toUpperCase();
         if(contPalabras<=6 && !victoria){
-            if(palabrasPosibles.contains(palabra)){
+            if(palabrasPosibles.contains(palabra) && unaLetra(ultima, palabra)){
                 setPalabra(palabra, contPalabras);
                 int resID = getResources().getIdentifier("tableRow"+(contPalabras+1), "id", getPackageName());
                 ((TableRow)findViewById(resID)).setVisibility(View.VISIBLE);
                 contPalabras++;
-            }
-            else{
+            }else if(!palabrasPosibles.contains(palabra)){
                 Toast.makeText(this, "Introduce una palabra valida.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this, "Solo puedes cambiar una letra.", Toast.LENGTH_SHORT).show();
             }
             if(palabra.equals(this.palabraDestino)){ //Victoria
                 //TODO: Notificacion de lo has conseguido en X intentos
+
                 victoria = true;
             }
         }
@@ -93,5 +100,33 @@ public class Juego extends AppCompatActivity {
         }
     }
 
+    public void cargarPalbras(){
+        InputStream fich = getResources().openRawResource(R.raw.palabras);
+        BufferedReader buff = new BufferedReader(new InputStreamReader(fich));
+        String linea;
+        try {
+            while ((linea = buff.readLine()) != null){
+                String[] palabras = linea.split(" ");
+                for(String palabra : palabras) {
+                    palabrasPosibles.add(palabra.toUpperCase());
+                }
+            }
+            fich.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public boolean unaLetra(String palabra1, String palabra2){
+        int c = 0;
+        Log.d("angela",palabra1);
+        Log.d("angela",palabra2);
+        for(int i = 0; i<palabra1.length(); i++){
+            if(palabra1.charAt(i) == palabra2.charAt(i)){
+                c++;
+            }
+        }
+        Log.d("angela", "c: "+c);
+        return c==(palabra1.length()-1);
+    }
 }
