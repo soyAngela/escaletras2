@@ -445,41 +445,55 @@
         </TableRow>
     </TableLayout>
 
-    <EditText
-        android:id="@+id/nuevaPalabra"
-        android:layout_width="125dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="76dp"
-        android:hint="ABCD"
-        android:maxLength="4"
-        android:textColorHint="#656565"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/enter"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="44dp"
-        android:background="@drawable/undo_arrow"
-        android:onClick="eliminarPalabra"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/footerLayout"
+        android:layout_width="394dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="5dp"
+        android:background="#FDFCFC"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/undo"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutTabla">
 
-    <Button
-        android:id="@+id/undo"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="76dp"
-        android:background="@drawable/send_arrow"
-        android:onClick="anadirPalabra"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/enter" />
+        <EditText
+            android:id="@+id/nuevaPalabra"
+            android:layout_width="125dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="52dp"
+            android:hint="ABCD"
+            android:inputType="textPersonName"
+            android:maxLength="4"
+            android:textColorHint="#656565"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/enter"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/undo_arrow"
+            android:onClick="eliminarPalabra"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/undo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/undo"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="21dp"
+            android:background="@drawable/send_arrow"
+            android:onClick="anadirPalabra"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/enter"
+            app:layout_constraintStart_toEndOf="@+id/nuevaPalabra"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

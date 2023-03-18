@@ -2,6 +2,7 @@ package com.example.escaletras;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +26,8 @@ public class Niveles extends AppCompatActivity {
     Button botonNuevo;
     Button botonReset;
 
+    DialogFragment dialogoReset;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class Niveles extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nivel);
         ListView listView = (ListView) findViewById(R.id.viewNiveles);
         listView.setAdapter(adapter);
+
+        dialogoReset = new ResetDialogo();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,8 +85,10 @@ public class Niveles extends AppCompatActivity {
         botonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                miDB.borraTodo();
+                dialogoReset.show(getSupportFragmentManager(), "etiquetaDialogo");
+                adapter.notifyDataSetChanged();
                 recreate();
+
             }
         });
 
