@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button botonJugar = findViewById(R.id.botonJugar);
         Button botonInstrucciones = findViewById(R.id.botonInstrucciones);
-        botonJugar.setOnClickListener(new View.OnClickListener() {
+        botonJugar.setOnClickListener(new View.OnClickListener() { //Boton que lleva a la actividad de Niveles.java
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Niveles.class);
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        botonInstrucciones.setOnClickListener(new View.OnClickListener(){
+        botonInstrucciones.setOnClickListener(new View.OnClickListener(){ //Boton que muestra un dialogo con las instrucciones del juego
             @Override
             public void onClick(View view) {
                 DialogFragment dialogoInstrucciones = new InstruccionesDialogo();

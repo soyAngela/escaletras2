@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class EditarNivel extends AppCompatActivity {
 
     EditText origenInput, destinoInput;
@@ -41,34 +39,34 @@ public class EditarNivel extends AppCompatActivity {
 
         MyDatabaseHelper miDB = new MyDatabaseHelper(EditarNivel.this);
 
-        if(!nivel.equals("nuevo")){
+        if(!nivel.equals("nuevo")){ //Si el nivel es nuevo hace modificaciones en la interfaz
             textoAnadir.setText("Modifica el nivel");
             origenInput.setText(extras.getString("palabraOrigen"));
             destinoInput.setText(extras.getString("palabraDestino"));
         }
 
-        botonGuardar.setOnClickListener(new View.OnClickListener() {
+        botonGuardar.setOnClickListener(new View.OnClickListener() { //Boton de guardar que gaurad lo encesario en la base de datos
             @Override
             public void onClick(View view) {
                 if(origenInput.getText().length()==4 && destinoInput.getText().length()==4){
-                    if(nivel.equals("nuevo")){
-                        miDB.anadirLibro(origenInput.getText().toString(), destinoInput.getText().toString());
+                    if(nivel.equals("nuevo")){ //Si es un nivel nuevo
+                        miDB.anadirNivel(origenInput.getText().toString(), destinoInput.getText().toString()); //Añade un nuevo libro a la base de datos
                         finish();
-                    }else{
-                        miDB.actualizarLibro(nivel,origenInput.getText().toString(), destinoInput.getText().toString());
+                    }else{ //Si no es nueva
+                        miDB.actualizarNivel(nivel,origenInput.getText().toString(), destinoInput.getText().toString()); //Se modifica el nivel seleccionado
                         finish();
                     }
-                }else{
+                }else{//Si se ha introducido mal una palabra
                     Toast.makeText(EditarNivel.this, "La palabra debe tener 4 letras.", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-        botonBorrar.setOnClickListener(new View.OnClickListener() {
+        botonBorrar.setOnClickListener(new View.OnClickListener() { //Boton de borrar el nivel
             @Override
             public void onClick(View view) {
-                miDB.borrarNivel(nivel);
+                miDB.borrarNivel(nivel); //Borra de la base datos el nivel seleccionado
                 finish();
             }
         });

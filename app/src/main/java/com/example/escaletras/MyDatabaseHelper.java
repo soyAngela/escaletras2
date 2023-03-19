@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -27,7 +26,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) { //Crea la tabla en la base de datos
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_ORIGEN + " TEXT, " +
@@ -41,7 +40,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void anadirLibro(String origen, String destino){
+    void anadirNivel(String origen, String destino){ //Añade un nivel nuevo a la base de datos
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -55,7 +54,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor leerNiveles(){
+    public Cursor leerNiveles(){ //Recoge todos los niveles de la base de datos
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
@@ -65,7 +64,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void borrarNivel(String row_id){
+    public void borrarNivel(String row_id){ //borra un nivel especifico de la base de datos
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
         if(result == -1){
@@ -75,7 +74,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void actualizarLibro(String nivel, String origen, String destino) {
+    public void actualizarNivel(String nivel, String origen, String destino) { //Actualiza un nivel de la base de datos
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ORIGEN, origen);
@@ -89,12 +88,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void borraTodo(){
+    public void borraTodo(){ //Borrado todos los datos de la base de datos y vuelve a añadir los niveles por defecto
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
         db.execSQL("UPDATE `sqlite_sequence` SET `seq` = 0 WHERE `name` = '" + TABLE_NAME + "';");
-        anadirLibro("HOLA","CASA");
-        anadirLibro("RISA", "MORA");
-        anadirLibro("SOLA", "REZA");
+        anadirNivel("HOLA","CASA");
+        anadirNivel("RISA", "MORA");
+        anadirNivel("SOLA", "REZA");
     }
 }

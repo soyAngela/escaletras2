@@ -15,7 +15,7 @@ public class InstruccionesDialogo extends DialogFragment {
 
     @Nullable
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) { //
         super.onCreateDialog(savedInstanceState);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -23,7 +23,7 @@ public class InstruccionesDialogo extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialogo_instrucciones,null);
         builder.setView(view);
-        builder.setMessage("Aqui van las instrucciones blabla.")
+        builder.setMessage("Consigue llegar de una palabra a otra cambiando una sola letra cada vez en el menor tiempo de intentos posible.")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
