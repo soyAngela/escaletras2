@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/viewNiveles"
+        android:layout_width="301dp"
+        android:layout_height="337dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="45dp"
+        android:overScrollMode="ifContentScrolls"
+        app:layout_constraintEnd_toStartOf="@+id/mantenPulsadoText"
+        app:layout_constraintStart_toEndOf="@+id/seleccionaText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/seleccionaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="10dp"
+        android:text="Selecciona un nivel:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloNiveles" />
+
+    <Button
+        android:id="@+id/botonReset"
+        android:layout_width="150dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginBottom="56dp"
+        android:text="Resetear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/botonNuevo"
+        android:layout_width="150dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="editarNivel"
+        android:text="Nuevo nivel"
+        app:layout_constraintBottom_toTopOf="@+id/botonReset"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tituloNiveles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="119dp"
+        android:text="Niveles"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mantenPulsadoText"
+        android:layout_width="129dp"
+        android:layout_height="184dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="128dp"
+        android:gravity="center"
+        android:text="Manten pulsado uno de los niveles para editarlo."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

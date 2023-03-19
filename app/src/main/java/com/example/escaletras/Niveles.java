@@ -45,7 +45,7 @@ public class Niveles extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.viewNiveles);
         listView.setAdapter(adapter);
 
-        dialogoReset = new ResetDialogo();
+        dialogoReset = new InstruccionesDialogo();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,8 +85,7 @@ public class Niveles extends AppCompatActivity {
         botonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogoReset.show(getSupportFragmentManager(), "etiquetaDialogo");
-                adapter.notifyDataSetChanged();
+                miDB.borraTodo();
                 recreate();
 
             }

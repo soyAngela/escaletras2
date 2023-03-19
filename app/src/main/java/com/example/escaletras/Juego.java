@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -55,11 +56,28 @@ public class Juego extends AppCompatActivity {
         setPalabra(palabraDestino, 0);
         setPalabra(palabraOrigen, 1);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){  //Create notification channel if the version is Oreo or greater
-            channel = new NotificationChannel("victoria", "notificacionVictoria", NotificationManager.IMPORTANCE_DEFAULT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            channel = new NotificationChannel("victoria", "notificacionVictoria", NotificationManager.IMPORTANCE_HIGH);
             notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        jugadas = savedInstanceState.getStringArrayList("jugadas");
+        for(int i = 1; i<jugadas.size(); i++){
+            setPalabra(jugadas.get(i), i+1);
+            int resID = getResources().getIdentifier("tableRow"+(i+2), "id", getPackageName());
+            ((TableRow)findViewById(resID)).setVisibility(View.VISIBLE);
+        }
+        contPalabras = jugadas.size()+1;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putStringArrayList("jugadas", jugadas);
+
     }
 
     public void setPalabra(String palabra, Integer fila){
@@ -156,14 +174,11 @@ public class Juego extends AppCompatActivity {
 
     public boolean unaLetra(String palabra1, String palabra2){
         int c = 0;
-        Log.d("angela",palabra1);
-        Log.d("angela",palabra2);
         for(int i = 0; i<palabra1.length(); i++){
             if(palabra1.charAt(i) == palabra2.charAt(i)){
                 c++;
             }
         }
-        Log.d("angela", "c: "+c);
         return c==(palabra1.length()-1);
     }
 }

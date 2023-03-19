@@ -1,6 +1,7 @@
 package com.example.escaletras;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +15,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button pelotas = findViewById(R.id.botonJugar);
-        pelotas.setOnClickListener(new View.OnClickListener() {
+        Button botonJugar = findViewById(R.id.botonJugar);
+        Button botonInstrucciones = findViewById(R.id.botonInstrucciones);
+        botonJugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Niveles.class);
                 MainActivity.this.startActivity(intent);
             }
         });
+
+        botonInstrucciones.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DialogFragment dialogoInstrucciones = new InstruccionesDialogo();
+                dialogoInstrucciones.show(getSupportFragmentManager(), "etiquetaDialogo");
+            }
+        });
+
+
     }
 
 

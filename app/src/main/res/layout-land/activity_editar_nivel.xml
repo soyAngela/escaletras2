@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/botonBorrar"
+        android:layout_width="135dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginEnd="268dp"
+        android:layout_marginBottom="30dp"
+        android:text="Borrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/botonGuardar" />
+
+    <TextView
+        android:id="@+id/instruccionesNuevo"
+        android:layout_width="334dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="267dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="268dp"
+        android:elegantTextHeight="true"
+        android:text="¡Juega tus propios niveles introduciendo las dos palabras con las que quieras jugar! "
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoAnadir" />
+
+    <TextView
+        android:id="@+id/textoAnadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="58dp"
+        android:text="Añadir nuevo nivel"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/botonGuardar"
+        android:layout_width="135dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="234dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="30dp"
+        android:text="Guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/botonBorrar"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/destinoInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="214dp"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:hint="Palabra destino"
+        android:inputType="textPersonName"
+        android:maxLength="4"
+        app:layout_constraintBottom_toTopOf="@+id/botonBorrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/origenInput" />
+
+    <EditText
+        android:id="@+id/origenInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="190dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:hint="Palabra origen"
+        android:inputType="textCapCharacters"
+        android:maxLength="4"
+        app:layout_constraintBottom_toTopOf="@+id/botonGuardar"
+        app:layout_constraintEnd_toStartOf="@+id/destinoInput"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

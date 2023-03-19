@@ -93,8 +93,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
         db.execSQL("UPDATE `sqlite_sequence` SET `seq` = 0 WHERE `name` = '" + TABLE_NAME + "';");
-        anadirLibro("PALO","PALA");
-        anadirLibro("HOLA", "COSA");
+        anadirLibro("HOLA","CASA");
+        anadirLibro("RISA", "MORA");
         anadirLibro("SOLA", "REZA");
     }
 }
