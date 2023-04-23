@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button botonJugar = findViewById(R.id.botonJugar);
         Button botonInstrucciones = findViewById(R.id.botonInstrucciones);
+        Button botonIdentificate = findViewById(R.id.botonIdentificate);
         botonJugar.setOnClickListener(new View.OnClickListener() { //Boton que lleva a la actividad de Niveles.java
             @Override
             public void onClick(View view) {
@@ -30,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DialogFragment dialogoInstrucciones = new InstruccionesDialogo();
                 dialogoInstrucciones.show(getSupportFragmentManager(), "etiquetaDialogo");
+            }
+        });
+
+        botonIdentificate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                MainActivity.this.startActivity(intent);
             }
         });
 
