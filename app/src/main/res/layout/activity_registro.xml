@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/botonRegistrate" />
 
     <TextView
-        android:id="@+id/textRegistrate"
+        android:id="@+id/textYaInicia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textYaTienesCuenta" />
 
     <TextView
-        android:id="@+id/textInicia"
+        android:id="@+id/textRegistra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="141dp"

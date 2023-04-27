@@ -1,9 +1,16 @@
 package com.example.escaletras;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +27,11 @@ public class Registro extends AppCompatActivity {
         EditText editRegisUsuario = findViewById(R.id.editRegisUsuario);
         EditText editRegisContrasena = findViewById(R.id.editRegisContrasena);
         Button botonRegistrate = findViewById(R.id.botonRegistrate);
-        TextView textInicia = findViewById(R.id.textInicia);
+        TextView textYaInicia = findViewById(R.id.textYaInicia);
 
-        textInicia.setOnClickListener(new View.OnClickListener() {
+        textYaInicia.setPaintFlags(textYaInicia.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        textYaInicia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Registro.this, Login.class);
@@ -33,17 +42,34 @@ public class Registro extends AppCompatActivity {
         botonRegistrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(registratUsuario(editRegisUsuario.getText().toString(), editRegisContrasena.getText().toString())){
-                    Intent intent = new Intent(Registro.this, MainActivity.class);
-                    Registro.this.startActivity(intent);
-                }else{
-                    Toast.makeText(Registro.this, "No ha sido posible registrar este usuario.", Toast.LENGTH_SHORT).show();
-                }
+                registrarUsuario(editRegisUsuario.getText().toString(), editRegisContrasena.getText().toString());
             }
         });
     }
 
-    public boolean registratUsuario(String usuario, String contrasena){
-        return true;
+    public void registrarUsuario(String usuario, String contrasena){
+        Data data = new Data.Builder()
+                .putString("usuario",usuario)
+                .putString("contrasena",contrasena)
+                .putString("url", "registrar_usuario.php")
+                .build();
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPhp.class).setInputData(data).build();
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if(workInfo != null && workInfo.getState().isFinished()){
+                            if(workInfo.getOutputData().getInt("resultado", 2) == 1){
+                                Intent intent = new Intent(Registro.this, MainActivity.class);
+                                intent.putExtra("usuario", usuario);
+                                setResult(1, intent);
+                                finish();
+                            }else{
+                                Toast.makeText(Registro.this, "El usuario o la contraseña no son validos.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+        WorkManager.getInstance(this).enqueue(otwr);
     }
 }
