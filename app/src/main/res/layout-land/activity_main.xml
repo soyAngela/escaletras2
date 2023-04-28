@@ -9,36 +9,71 @@
             android:id="@+id/titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:fontFamily="@font/alata"
             android:text="EscaLetras"
             android:textSize="60sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.265" />
+            app:layout_constraintVertical_bias="0.498" />
 
-        <Button
-            android:id="@+id/botonJugar"
+        <TextView
+            android:id="@+id/textBienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="224dp"
-            android:layout_marginTop="80dp"
-            android:text="@string/jugar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titulo" />
-
-        <Button
-            android:id="@+id/botonInstrucciones"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="171dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="229dp"
-            android:text="@string/instrucciones"
+            android:layout_marginTop="276dp"
+            android:layout_marginEnd="496dp"
+            android:text="Bienvenido de nuevo!"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/botonJugar"
-            app:layout_constraintTop_toBottomOf="@+id/titulo" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="297dp"
+            android:layout_height="245dp"
+            android:layout_marginEnd="63dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
+
+                <Button
+                    android:id="@+id/botonJugar"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:drawableLeft="@android:drawable/ic_media_play"
+                    android:text="@string/jugar" />
+
+                <Button
+                    android:id="@+id/botonInstrucciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:drawableLeft="@android:drawable/ic_dialog_info"
+                    android:text="@string/instrucciones" />
+
+                <Button
+                    android:id="@+id/botonIdentificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:text="Identifícate" />
+
+                <Button
+                    android:id="@+id/botonPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:drawableLeft="@drawable/ic_launcher_foreground"
+                    android:text="Perfil"
+                    android:visibility="gone" />
+        </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

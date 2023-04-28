@@ -27,14 +27,14 @@ public class BajarFotoPhp extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String usuario = getInputData().getString("usuario");
-        Log.d("angelaa", "BajarFoto/ doWork() usuario: "+usuario);
+        String usuario = getInputData().getString("usuario"); //Se recogen los parametros de la llamada
+        Log.d("angela", "BajarFoto/ doWork() usuario: "+usuario);
 
-        String direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/bajar_foto.php";
+        String direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/bajar_foto.php"; //llamada al archivo bajar_foto.php
         HttpURLConnection urlConnection = null;
 
         try{
-            URL destino = new URL(direccion);
+            URL destino = new URL(direccion); //Construimos la url
             urlConnection = (HttpURLConnection) destino.openConnection();
             urlConnection.setConnectTimeout(5000);
             urlConnection.setReadTimeout(5000);
@@ -57,7 +57,7 @@ public class BajarFotoPhp extends Worker {
             int statusCode = urlConnection.getResponseCode();
             Log.d("angela", "BajarFoto/ statusCode: "+statusCode);
             Log.d("angela", "BajarFoto/ message: "+ urlConnection.getResponseMessage());
-            if (statusCode == 200){
+            if (statusCode == 200){ //Comprobar que la respuesta es correcta
                 BufferedInputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                 String line, result="";
@@ -65,7 +65,7 @@ public class BajarFotoPhp extends Worker {
                     result += line;
                 }
                 inputStream.close();
-                Log.d("angela","BajarFoto/ result: "+result);
+                Log.d("angela","BajarFoto/ resultado: "+result);
                 Data resultado = new Data.Builder()
                         .putString("resultado", result)
                         .build();

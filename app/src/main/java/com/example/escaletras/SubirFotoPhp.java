@@ -27,7 +27,7 @@ public class SubirFotoPhp extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String usuario = getInputData().getString("usuario");
+        String usuario = getInputData().getString("usuario"); //Se recogen los parametros de la llamada
         String foto = getInputData().getString("foto");
         Log.d("angelaa", "foto: "+foto);
 
@@ -35,7 +35,7 @@ public class SubirFotoPhp extends Worker {
         HttpURLConnection urlConnection = null;
 
         try{
-            URL destino = new URL(direccion);
+            URL destino = new URL(direccion); //Construimos la url
             urlConnection = (HttpURLConnection) destino.openConnection();
             urlConnection.setConnectTimeout(5000);
             urlConnection.setReadTimeout(5000);
@@ -57,25 +57,25 @@ public class SubirFotoPhp extends Worker {
             out.close();
 
             int statusCode = urlConnection.getResponseCode();
-            Log.d("angelaa", "statusCode: "+statusCode);
-            Log.d("angelaa", "message: "+ urlConnection.getResponseMessage());
-            if (statusCode == 200){
+            Log.d("angela", "SubirFoto/ statusCode: "+statusCode);
+            Log.d("angela", "SubirFoto/ message: "+ urlConnection.getResponseMessage());
+            if (statusCode == 200){ //Comprobar que la respuesta es correcta
                 BufferedInputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                 String line = bufferedReader.readLine();
                 inputStream.close();
-                Log.d("angelaa","line: "+line);
+                Log.d("angela","SubirFoto/ line: "+line);
                 if(line.equals("1")){
                     Data resultado = new Data.Builder()
                             .putInt("resultado", 1)
                             .build();
-                    Log.d("angelaa","Exito");
+                    Log.d("angela","SubirFoto/ Exito");
                     return Result.success(resultado);
                 }else{
                     Data resultado = new Data.Builder()
                             .putInt("resultado", 0)
                             .build();
-                    Log.d("angelaa", "Fallo");
+                    Log.d("angelaa", "SubirFoto/ Fallo");
                     return Result.success(resultado);
                 }
 

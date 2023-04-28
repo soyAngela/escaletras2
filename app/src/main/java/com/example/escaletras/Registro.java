@@ -29,9 +29,9 @@ public class Registro extends AppCompatActivity {
         Button botonRegistrate = findViewById(R.id.botonRegistrate);
         TextView textYaInicia = findViewById(R.id.textYaInicia);
 
-        textYaInicia.setPaintFlags(textYaInicia.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textYaInicia.setPaintFlags(textYaInicia.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG); //Subraya la palabra "Inicia Sesion"
 
-        textYaInicia.setOnClickListener(new View.OnClickListener() {
+        textYaInicia.setOnClickListener(new View.OnClickListener() { //Listener de boton para acceder al menu de inicio de sesion
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Registro.this, Login.class);
@@ -39,27 +39,27 @@ public class Registro extends AppCompatActivity {
             }
         });
 
-        botonRegistrate.setOnClickListener(new View.OnClickListener() {
+        botonRegistrate.setOnClickListener(new View.OnClickListener() { //Listener para el boton de registrarse
             @Override
             public void onClick(View view) {
-                registrarUsuario(editRegisUsuario.getText().toString(), editRegisContrasena.getText().toString());
+                registrarUsuario(editRegisUsuario.getText().toString(), String.valueOf(editRegisContrasena.getText().toString().hashCode()));
             }
         });
     }
 
-    public void registrarUsuario(String usuario, String contrasena){
+    public void registrarUsuario(String usuario, String contrasena){ //Metodo que hace la peticion de registrarse
         Data data = new Data.Builder()
                 .putString("usuario",usuario)
                 .putString("contrasena",contrasena)
                 .putString("url", "registrar_usuario.php")
                 .build();
-        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPhp.class).setInputData(data).build();
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPhp.class).setInputData(data).build(); //Se construye la tarea del WorkBuilder
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
                 .observe(this, new Observer<WorkInfo>() {
                     @Override
-                    public void onChanged(WorkInfo workInfo) {
+                    public void onChanged(WorkInfo workInfo) { //Cuando recibe la respuesta de la peticion
                         if(workInfo != null && workInfo.getState().isFinished()){
-                            if(workInfo.getOutputData().getInt("resultado", 2) == 1){
+                            if(workInfo.getOutputData().getInt("resultado", 2) == 1){ //Si recibe el resultado deseado
                                 Intent intent = new Intent(Registro.this, MainActivity.class);
                                 intent.putExtra("usuario", usuario);
                                 setResult(1, intent);

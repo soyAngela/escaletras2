@@ -9,19 +9,14 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 public class ConexionPhp extends Worker {
 
@@ -32,17 +27,17 @@ public class ConexionPhp extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String usuario = getInputData().getString("usuario");
+        String usuario = getInputData().getString("usuario"); //Se recogen los parametros de la llamada
         String contra = getInputData().getString("contrasena");
         String url = getInputData().getString("url");
         Log.d("angela", "usu: "+usuario);
         Log.d("angela", "pass: "+contra);
         Log.d("angela", "url: "+url);
 
-        String direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/"+url;
+        String direccion = "http://ec2-54-93-62-124.eu-central-1.compute.amazonaws.com/agonzalez488/WEB/"+url; //La direccion con un parametro de url para diferenciar entre validar y registrar
         HttpURLConnection urlConnection = null;
         try{
-            URL destino = new URL(direccion);
+            URL destino = new URL(direccion); //Construimos la url
             urlConnection = (HttpURLConnection) destino.openConnection();
             urlConnection.setConnectTimeout(5000);
             urlConnection.setReadTimeout(5000);
@@ -66,7 +61,7 @@ public class ConexionPhp extends Worker {
             int statusCode = urlConnection.getResponseCode();
             Log.d("angela", "statusCode: "+statusCode);
             Log.d("angela", "message: "+ urlConnection.getResponseMessage());
-            if (statusCode == 200){
+            if (statusCode == 200){ //Comprobar que la respuesta es correcta
                 BufferedInputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                 String line = bufferedReader.readLine();

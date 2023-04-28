@@ -45,29 +45,29 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        botonIniciar.setOnClickListener(new View.OnClickListener() { //Listener para intentr inicar sesion
+        botonIniciar.setOnClickListener(new View.OnClickListener() { //Listener para el boton de inicar sesion
             @Override
             public void onClick(View view) {
-                comprobarUsuario(editUsuario.getText().toString(), editContrasena.getText().toString());
+                comprobarUsuario(editUsuario.getText().toString(), String.valueOf(editContrasena.getText().toString().hashCode()));
             }
         });
     }
 
     public void comprobarUsuario(String usuario, String contrasena){ //Comprueba el usuario
 
-        Data data = new Data.Builder()
+        Data data = new Data.Builder() //Recoger los datos que se van a pasar a la peticion
                 .putString("usuario",usuario)
                 .putString("contrasena",contrasena)
                 .putString("url", "validar_usuario.php")
                 .build();
-        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPhp.class).setInputData(data).build();
+        OneTimeWorkRequest otwr = new OneTimeWorkRequest.Builder(ConexionPhp.class).setInputData(data).build(); //Se construye la tarea del WorkBuilder
         WorkManager.getInstance(this).getWorkInfoByIdLiveData(otwr.getId())
                 .observe(this, new Observer<WorkInfo>() {
                     @Override
-                    public void onChanged(WorkInfo workInfo) {
+                    public void onChanged(WorkInfo workInfo) { //Cuando recibe la respuesta de la peticion
                         if(workInfo != null && workInfo.getState().isFinished()){
-                            Log.d("angela", "resultado="+workInfo.getOutputData().getInt("resultado", 2));
-                            if(workInfo.getOutputData().getInt("resultado", 2) == 1){
+                            Log.d("angela", "Login/ resultado="+workInfo.getOutputData().getInt("resultado", 2));
+                            if(workInfo.getOutputData().getInt("resultado", 2) == 1){ //Si se recibe el resultado deseado
                                 volverMain(usuario);
                             }else{
                                 Toast.makeText(Login.this, "El usuario o la contraseña son incorrectos.", Toast.LENGTH_SHORT).show();
@@ -79,13 +79,13 @@ public class Login extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { //Al volver de la actividad de registro
         super.onActivityResult(requestCode, resultCode, data);
         String usuario = data.getStringExtra("usuario");
         volverMain(usuario);
     }
 
-    public void volverMain(String usuario){
+    public void volverMain(String usuario){ //Se encarga de volver a la actividad main
         Intent intent = new Intent(Login.this, MainActivity.class);
         intent.putExtra("usuario", usuario);
         setResult(1, intent);
